@@ -76,7 +76,8 @@ Notes:
       "Read(./.env.*)",
       "Edit(./.env)",
       "Edit(./.env.*)",
-      "Bash(git push --force *)"
+      "Bash(git push --force *)",
+      "Bash(git push -f *)"
     ]
   }
 }

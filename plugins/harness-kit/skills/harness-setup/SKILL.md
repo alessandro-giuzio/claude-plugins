@@ -7,7 +7,7 @@ description: >
   CLAUDE.md, a check.sh gate and .claude/settings.json permissions, matched
   to the project's stack. Version 0.1.0 supports Astro + Tailwind v4 only.
 metadata:
-  version: "0.1.2"
+  version: "0.1.3"
 ---
 
 # Harness setup
@@ -37,6 +37,7 @@ Read `references/astro.md` for the templates. Then check what this repo really h
 - Folders: which of `src/pages`, `src/layouts`, `src/components`, `src/styles`, `src/content` exist, and where the main CSS file is
 - Deploy targets: `netlify.toml` (Netlify), `wrangler.jsonc` or `wrangler.toml` (Cloudflare), a `Dockerfile` (Coolify or Docker). A repo can have more than one; record every target found.
 - Existing harness files: `CLAUDE.md`, `check.sh`, `.claude/settings.json`, `.claude/settings.local.json`
+- `.gitignore`: whether it ignores every env file (`.env` and `.env.*`, except a committed `.env.example`)
 
 ## 3. Write CLAUDE.md
 
@@ -61,21 +62,27 @@ Read `references/astro.md` for the templates. Then check what this repo really h
 - Start from the permissions in `references/astro.md`.
 - Keep in `allow` only the commands that are in this repo's `check.sh`, plus `./check.sh` and `git commit`.
 - Add the deploy rules for every target found in step 2, and only those. The rules per host are in `references/astro.md`.
-- If `.claude/settings.json` already exists, merge: add missing rules, keep every existing rule, never remove a `deny` entry.
+- If `.claude/settings.json` already exists, merge: add missing rules, keep every existing rule, never remove a `deny` entry. Check the `deny` list against the template too, and propose any missing entry (for example the short `-f` form of force push).
 - Never read, edit or create `.claude/settings.local.json`.
 
-## 6. Prove it
+## 6. Check .gitignore
+
+- If `.gitignore` does not cover `.env.*` (only `.env`, or a list of named env files), propose adding `.env.*` and `!.env.example` as a diff. Do not edit `.gitignore` without approval.
+- Run `git ls-files '.env*'`. If an env file other than `.env.example` is already tracked, flag it at the top of the report: ignoring it now does not remove it from history.
+
+## 7. Prove it
 
 1. Run `./check.sh` and read the full output.
 2. If it does not end with `GATE: PASS`, fix the harness files (not the project code) until it does, or remove the failing command and record it.
 
-## 7. Report
+## 8. Report
 
 Do not commit. End with a short report:
 
 - The branch the files were written to
 - The deploy targets detected
 - The three files, and for each one: created, merged, or unchanged with proposed changes
+- `.gitignore`: covers env files, or the proposed line
 - The gate commands that are in `check.sh`
 - Anything left out and why (a gate command that fails, a rule that did not apply)
 - The `GATE: PASS` output, pasted
