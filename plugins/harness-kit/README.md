@@ -30,6 +30,7 @@ The three generated files are committed per project. Project-specific skills (co
 
 ## Changelog
 
+- 0.2.1: WordPress reference: `WPINC` guards count as direct-access guards; wording for repos with several plugins; compares `Requires PHP` with the local PHP; phpcs and `php -l` skip `node_modules/` and `build/`.
 - 0.2.0: WordPress plugin stack. Monorepo support: finds each part, builds one gate that runs every part's checks from its folder, and groups the CLAUDE.md rules by part. Reports missing dependencies and check tools with the install command.
 - 0.1.4: Report opens with the skill version. Recommends the install command for `@astrojs/check` when the gate has no type check. Cloudflare repos get `.wrangler/` and `.dev.vars` in the `.gitignore` proposal and deny rules for `.dev.vars`.
 - 0.1.3: Blocks `git push -f` as well as `--force`, and proposes it for existing settings. Checks that `.gitignore` covers `.env.*` and flags env files already tracked.

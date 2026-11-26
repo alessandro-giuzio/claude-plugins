@@ -5,6 +5,7 @@ Starting points for a custom WordPress plugin, at the repo root or in a subfolde
 ## What to look for
 
 - The main plugin file: the PHP file with the `Plugin Name:` header. Read `Text Domain`, `Requires PHP` and any `define()` constants for the prefix.
+- The PHP version: compare the header's `Requires PHP` with the local `php -v`. `php -l` only proves the syntax is valid on the local version, so when the local PHP is newer than the plugin's minimum, say in the report that the gate does not verify the minimum.
 - `composer.json`: autoloading (PSR-4 namespace), `path` repositories pointing to other parts of a monorepo, and `require-dev` tools.
 - Check tools: `squizlabs/php_codesniffer` with `wp-coding-standards/wpcs`, `phpstan/phpstan` (with `szepeviktor/phpstan-wordpress`), `pestphp/pest` or `phpunit/phpunit`. Installed means listed in `require-dev` and present in `<plugin>/vendor/bin`.
 - Folders: `src/` or `includes/` (classes), `admin/` or `src/Admin` (admin screens), `blocks/` (block editor), `public/` or `assets/` (front-end files), `languages/`, `uninstall.php`.
@@ -27,10 +28,11 @@ WordPress plugin <name> (PHP <version>), Composer autoloading (<Namespace>\)
 
 ## Hard rules
 - Edit only inside this plugin. Never WordPress core, other plugins, themes or wp-config.php.
+  (Repo with several of your own plugins: "Edit only the plugins in this repo. Never WordPress core, third-party plugins, themes or wp-config.php.")
 - Escape on output (esc_html, esc_attr, esc_url, wp_kses) and sanitize on input.
 - Every form, AJAX handler and REST route checks a nonce or permission callback and a capability.
 - Every query with variables goes through $wpdb->prepare().
-- Every PHP file exits if ABSPATH is not defined.
+- Every PHP file exits on direct access: `defined( 'ABSPATH' ) || exit;` (a `WPINC` check is equally fine).
 - Prefix functions, hooks, options and constants with <prefix>.
 - User-facing strings go through __() / _e() with the text domain <text-domain>.
 - Never run WP-CLI against a live site. Local copy only.
@@ -46,7 +48,8 @@ WordPress plugin <name> (PHP <version>), Composer autoloading (<Namespace>\)
 
 Notes:
 - Delete the lines for folders that do not exist (no `blocks/`, no generated output).
-- No `ABSPATH` guard in the existing files: keep the rule, and mention in the report that existing files do not follow it yet.
+- Direct-access guard: files guarded by `ABSPATH` or `WPINC` both follow the rule. Only files with neither go in the report.
+- Several plugins in one repo: use the multi-plugin wording of the first rule, and repeat only the rules that differ per plugin (prefix, text domain).
 - Monorepo: this block becomes the plugin's group under "Hard rules", headed with its folder. The "How to work" section appears once for the whole repo.
 
 ## check.sh
@@ -56,8 +59,8 @@ Single plugin at the repo root:
 ```bash
 #!/usr/bin/env bash
 set -e
-find . -name '*.php' -not -path './vendor/*' -print0 | xargs -0 -n1 php -l > /dev/null
-./vendor/bin/phpcs --standard=WordPress --extensions=php --ignore=vendor/ .
+find . -name '*.php' -not -path './vendor/*' -not -path './node_modules/*' -print0 | xargs -0 -n1 php -l > /dev/null
+./vendor/bin/phpcs --standard=WordPress --extensions=php --ignore=vendor/,node_modules/,build/ .
 echo "GATE: PASS"
 ```
 
@@ -65,8 +68,8 @@ Plugin in a monorepo subfolder:
 
 ```bash
 # WordPress plugin
-(cd <plugin> && find . -name '*.php' -not -path './vendor/*' -print0 | xargs -0 -n1 php -l > /dev/null)
-(cd <plugin> && ./vendor/bin/phpcs --standard=WordPress --extensions=php --ignore=vendor/ .)
+(cd <plugin> && find . -name '*.php' -not -path './vendor/*' -not -path './node_modules/*' -print0 | xargs -0 -n1 php -l > /dev/null)
+(cd <plugin> && ./vendor/bin/phpcs --standard=WordPress --extensions=php --ignore=vendor/,node_modules/,build/ .)
 ```
 
 Notes:
