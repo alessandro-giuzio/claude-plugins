@@ -7,6 +7,7 @@ Sets up a Claude Code harness in a client repo, and checks work before it is cal
 | Component | Name | What it does |
 |---|---|---|
 | Skill | `harness-setup` | Writes `CLAUDE.md`, `check.sh` and `.claude/settings.json` for the repo's stack. Runs the gate to prove it passes. |
+| Skill | `task-contract` | Turns a request into goal, scope, constraints and done-when lines before any code changes. Ends with a ready-to-paste verifier prompt. |
 | Agent | `verifier` | Read-only reviewer. Runs `./check.sh`, checks the done-when lines, replies ACCEPT or REJECT. |
 
 ## Use
@@ -14,7 +15,8 @@ Sets up a Claude Code harness in a client repo, and checks work before it is cal
 In a project root:
 
 - `/harness-setup` or "set up the harness in this repo"
-- "use the verifier on this change"
+- "write a task contract for this" or `/task-contract`, before a change
+- "use the verifier on this change", after it
 
 ## Supported stacks
 
@@ -30,6 +32,7 @@ The three generated files are committed per project. Project-specific skills (co
 
 ## Changelog
 
+- 0.3.0: New `task-contract` skill: goal, scope, constraints, done-when lines written against the goal, what needs a manual check, and a ready-to-paste verifier prompt at the end.
 - 0.2.2: Verifier: rule breaks the change introduced are blocking; pre-existing ones in touched files are listed, not blocking. Reads done-when lines against the goal. Verdict on the first line, then every check with evidence. Can use `git show` to compare with the parent commit.
 - 0.2.1: WordPress reference: `WPINC` guards count as direct-access guards; wording for repos with several plugins; compares `Requires PHP` with the local PHP; phpcs and `php -l` skip `node_modules/` and `build/`.
 - 0.2.0: WordPress plugin stack. Monorepo support: finds each part, builds one gate that runs every part's checks from its folder, and groups the CLAUDE.md rules by part. Reports missing dependencies and check tools with the install command.
