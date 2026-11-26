@@ -1,9 +1,17 @@
 {
   "name": "harness-kit",
-  "version": "0.1.4",
-  "description": "Set up a Claude Code harness in a client repo: a short CLAUDE.md, a check.sh gate, safe permissions, and a verifier that reviews work before it is called done.",
+  "version": "0.2.0",
+  "description": "Set up a Claude Code harness in a repo: a short CLAUDE.md, a check.sh gate, safe permissions, and a verifier that reviews work before it is called done. Astro, WordPress plugins and monorepos.",
   "author": {
     "name": "Alessandro Giuzio"
   },
-  "keywords": ["claude-code", "harness", "astro", "permissions", "verification"]
+  "keywords": [
+    "claude-code",
+    "harness",
+    "astro",
+    "wordpress",
+    "monorepo",
+    "permissions",
+    "verification"
+  ]
 }

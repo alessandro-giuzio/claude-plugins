@@ -19,7 +19,7 @@ Update after a new version is pushed:
 
 | Plugin | Version | What it does |
 |---|---|---|
-| [harness-kit](plugins/harness-kit) | 0.1.4 | Sets up CLAUDE.md, check.sh and permissions in a repo; verifier agent |
+| [harness-kit](plugins/harness-kit) | 0.2.0 | Sets up CLAUDE.md, check.sh and permissions in a repo (Astro, WordPress plugins, monorepos); verifier agent |
 
 ## Working on a plugin
 

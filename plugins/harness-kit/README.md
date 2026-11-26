@@ -18,9 +18,11 @@ In a project root:
 
 ## Supported stacks
 
-- Astro + Tailwind v4
+- Astro + Tailwind v4 (`references/astro.md`)
+- WordPress plugin, at the repo root or in a subfolder (`references/wordpress-plugin.md`)
+- Monorepos containing any of the above. Parts without a reference (for example a Vue package or a plain PHP library) get their own existing test and build scripts in the gate.
 
-Planned: Vue 3 + TypeScript, Laravel, WordPress plugin, WordPress site. Each one is a new file in `skills/harness-setup/references/`.
+Planned: WordPress site, Vue 3 + TypeScript, Laravel. Each one is a new file in `skills/harness-setup/references/`.
 
 ## What stays in the repo
 
@@ -28,6 +30,7 @@ The three generated files are committed per project. Project-specific skills (co
 
 ## Changelog
 
+- 0.2.0: WordPress plugin stack. Monorepo support: finds each part, builds one gate that runs every part's checks from its folder, and groups the CLAUDE.md rules by part. Reports missing dependencies and check tools with the install command.
 - 0.1.4: Report opens with the skill version. Recommends the install command for `@astrojs/check` when the gate has no type check. Cloudflare repos get `.wrangler/` and `.dev.vars` in the `.gitignore` proposal and deny rules for `.dev.vars`.
 - 0.1.3: Blocks `git push -f` as well as `--force`, and proposes it for existing settings. Checks that `.gitignore` covers `.env.*` and flags env files already tracked.
 - 0.1.2: Never edits an existing `check.sh`; proposes a diff instead. Trial gate commands stay away from `.env*` and `.claude/settings.local.json`. No proposed lines for missing folders. Astro template no longer mentions migrations.

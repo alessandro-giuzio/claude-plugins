@@ -10,8 +10,8 @@
     {
       "name": "harness-kit",
       "source": "./plugins/harness-kit",
-      "description": "Set up a Claude Code harness in a repo (CLAUDE.md, check.sh, safe permissions) and verify work before it is called done.",
-      "version": "0.1.4"
+      "description": "Set up a Claude Code harness in a repo (CLAUDE.md, check.sh, safe permissions) and verify work before it is called done. Astro, WordPress plugins, monorepos.",
+      "version": "0.2.0"
     }
   ]
 }
