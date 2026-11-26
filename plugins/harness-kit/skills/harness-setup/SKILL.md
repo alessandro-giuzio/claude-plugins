@@ -7,7 +7,7 @@ description: >
   CLAUDE.md, a check.sh gate and .claude/settings.json permissions, matched
   to the project's stack. Version 0.1.0 supports Astro + Tailwind v4 only.
 metadata:
-  version: "0.1.3"
+  version: "0.1.4"
 ---
 
 # Harness setup
@@ -52,8 +52,9 @@ Read `references/astro.md` for the templates. Then check what this repo really h
 - If `check.sh` already exists, do not edit it, not even a comment. Run it, report whether it passes, and propose any change as a diff for the user to approve.
 - Otherwise, start from the gate in `references/astro.md`.
 - Run each gate command by hand first. Put only the commands that pass into `check.sh`.
-- Keep trial runs away from private files. Before running a command that scans the whole tree (such as `npx prettier --check .`), make sure it cannot read `.env*` or `.claude/settings.local.json`: pass explicit paths, or check that a `.prettierignore` excludes them. If a command's output names one of those files anyway, do not open it, and say so in the report.
+- Keep trial runs away from private files. Before running a command that scans the whole tree (such as `npx prettier --check .`), make sure it cannot read `.env*`, `.dev.vars` or `.claude/settings.local.json`: pass explicit paths, or check that a `.prettierignore` excludes them. If a command's output names one of those files anyway, do not open it, and say so in the report.
 - For each command that fails or is not installed, leave it out and record why. Do not fix unrelated failures as part of setup.
+- If the gate ends up with no type check (only a build), say so in the report and give the install command for the user to run, for example `npm i -D @astrojs/check typescript`, then the line to add to `check.sh`. Do not run the install.
 - The last line is always `echo "GATE: PASS"`.
 - Run `chmod +x check.sh`.
 
@@ -63,11 +64,13 @@ Read `references/astro.md` for the templates. Then check what this repo really h
 - Keep in `allow` only the commands that are in this repo's `check.sh`, plus `./check.sh` and `git commit`.
 - Add the deploy rules for every target found in step 2, and only those. The rules per host are in `references/astro.md`.
 - If `.claude/settings.json` already exists, merge: add missing rules, keep every existing rule, never remove a `deny` entry. Check the `deny` list against the template too, and propose any missing entry (for example the short `-f` form of force push).
+- Cloudflare repos: add the `.dev.vars` deny rules from `references/astro.md`.
 - Never read, edit or create `.claude/settings.local.json`.
 
 ## 6. Check .gitignore
 
 - If `.gitignore` does not cover `.env.*` (only `.env`, or a list of named env files), propose adding `.env.*` and `!.env.example` as a diff. Do not edit `.gitignore` without approval.
+- Cloudflare repos (step 2 found `wrangler.jsonc` or `wrangler.toml`): the proposal also covers `.wrangler/` (local Wrangler state) and `.dev.vars` (local secrets), if they are missing.
 - Run `git ls-files '.env*'`. If an env file other than `.env.example` is already tracked, flag it at the top of the report: ignoring it now does not remove it from history.
 
 ## 7. Prove it
@@ -79,6 +82,7 @@ Read `references/astro.md` for the templates. Then check what this repo really h
 
 Do not commit. End with a short report:
 
+- First line: `harness-setup 0.1.4`, so the user can see which version ran
 - The branch the files were written to
 - The deploy targets detected
 - The three files, and for each one: created, merged, or unchanged with proposed changes
@@ -90,6 +94,6 @@ Do not commit. End with a short report:
 
 ## Rules for this skill
 
-- Never read or edit `.env` files while inspecting the project.
+- Never read or edit `.env` or `.dev.vars` files while inspecting the project.
 - Never push, deploy or install packages. If a gate tool is missing, report it and let the user decide.
 - Never invent a path or a script name. Every path and command written into the harness files must exist in this repo.

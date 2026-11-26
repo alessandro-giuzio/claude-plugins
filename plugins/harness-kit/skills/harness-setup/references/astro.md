@@ -50,7 +50,7 @@ echo "GATE: PASS"
 ```
 
 Notes:
-- `npx astro check` needs `@astrojs/check` and `typescript` installed. If they are missing, leave the line out and report it.
+- `npx astro check` needs `@astrojs/check` and `typescript` installed. If they are missing, leave the line out, and in the report give the command to install them (`npm i -D @astrojs/check typescript`) and the line to add to `check.sh` afterwards.
 - Before trying `npx prettier --check .`, check that a `.prettierignore` excludes `.env*` and `.claude/`. If there is none, run Prettier on `src/` only.
 - `npx prettier --check .` only belongs here if `prettier` is a dependency and the repo already passes it. A repo that has never been formatted will fail on hundreds of files; leave it out and report it.
 - If `package.json` has its own `check` or `lint` script, prefer `npm run <script>` over the raw command.
@@ -93,5 +93,24 @@ Deploy rules, added to `ask` for each host the repo deploys to:
 | Coolify | `Dockerfile` and no other target | nothing: a push to the deploy branch ships, and `git push` already asks |
 
 - A repo with two hosts gets both sets of rules. When both are connected to the repo, one `git push` deploys twice; say so in `CLAUDE.md`.
+- Cloudflare project: also add to `deny`: `"Read(./.dev.vars)"`, `"Edit(./.dev.vars)"`. `.dev.vars` holds local secrets for `wrangler dev`, like `.env`.
 - Cloudflare Pages commands (`wrangler pages deploy`) are older; if the repo uses them, add `"Bash(wrangler pages deploy *)"` and `"Bash(npx wrangler pages deploy *)"` too.
 - Remove from `allow` any command that is not in this repo's `check.sh`.
+
+## .gitignore
+
+Every Astro repo should ignore:
+
+```
+.env
+.env.*
+!.env.example
+```
+
+Cloudflare repos also need:
+
+```
+# Cloudflare
+.wrangler/
+.dev.vars
+```

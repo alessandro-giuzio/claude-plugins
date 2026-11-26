@@ -28,6 +28,7 @@ The three generated files are committed per project. Project-specific skills (co
 
 ## Changelog
 
+- 0.1.4: Report opens with the skill version. Recommends the install command for `@astrojs/check` when the gate has no type check. Cloudflare repos get `.wrangler/` and `.dev.vars` in the `.gitignore` proposal and deny rules for `.dev.vars`.
 - 0.1.3: Blocks `git push -f` as well as `--force`, and proposes it for existing settings. Checks that `.gitignore` covers `.env.*` and flags env files already tracked.
 - 0.1.2: Never edits an existing `check.sh`; proposes a diff instead. Trial gate commands stay away from `.env*` and `.claude/settings.local.json`. No proposed lines for missing folders. Astro template no longer mentions migrations.
 - 0.1.1: Checks the current branch before suggesting a new one. Detects Cloudflare (`wrangler.jsonc` / `wrangler.toml`) and repos with more than one deploy host.
