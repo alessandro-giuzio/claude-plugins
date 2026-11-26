@@ -1,6 +1,6 @@
 {
   "name": "harness-kit",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Set up a Claude Code harness in a client repo: a short CLAUDE.md, a check.sh gate, safe permissions, and a verifier that reviews work before it is called done.",
   "author": {
     "name": "Alessandro Giuzio"

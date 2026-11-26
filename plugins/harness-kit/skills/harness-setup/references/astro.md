@@ -24,7 +24,7 @@ Astro + Tailwind v4 + TypeScript, deployed on <every host found: Netlify, Cloudf
 - Every page keeps a unique title, a meta description, one h1, and its JSON-LD.
 - Images go through astro:assets with alt text.
 - Never read or edit .env files.
-- Never push, deploy or run a migration without asking.
+- Never push or deploy without asking.
 
 ## How to work
 - At session start, read STATE.md if it exists.
@@ -35,7 +35,7 @@ Astro + Tailwind v4 + TypeScript, deployed on <every host found: Netlify, Cloudf
 
 Notes:
 - Tailwind v3 project: replace the first hard rule with "Tokens live in tailwind.config.*. Extend the theme there; do not add arbitrary values."
-- No `docs/` folder: delete the "Deeper docs" line.
+- No `docs/` folder: delete the "Deeper docs" line, and do not propose it later.
 - No JSON-LD on the site yet: keep the rule only if the user wants it enforced.
 
 ## check.sh
@@ -51,6 +51,7 @@ echo "GATE: PASS"
 
 Notes:
 - `npx astro check` needs `@astrojs/check` and `typescript` installed. If they are missing, leave the line out and report it.
+- Before trying `npx prettier --check .`, check that a `.prettierignore` excludes `.env*` and `.claude/`. If there is none, run Prettier on `src/` only.
 - `npx prettier --check .` only belongs here if `prettier` is a dependency and the repo already passes it. A repo that has never been formatted will fail on hundreds of files; leave it out and report it.
 - If `package.json` has its own `check` or `lint` script, prefer `npm run <script>` over the raw command.
 

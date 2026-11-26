@@ -7,7 +7,7 @@ description: >
   CLAUDE.md, a check.sh gate and .claude/settings.json permissions, matched
   to the project's stack. Version 0.1.0 supports Astro + Tailwind v4 only.
 metadata:
-  version: "0.1.1"
+  version: "0.1.2"
 ---
 
 # Harness setup
@@ -41,15 +41,17 @@ Read `references/astro.md` for the templates. Then check what this repo really h
 ## 3. Write CLAUDE.md
 
 - Start from the template in `references/astro.md`.
-- Replace every path with the real one. Delete lines for folders that do not exist.
+- Replace every path with the real one. Delete lines for folders that do not exist, and never propose a line that points to a missing folder (for example the "Deeper docs: docs/" line when there is no `docs/`).
 - Drop any hard rule that does not apply (for example the Tailwind v4 rule in a v3 project; write the v3 equivalent instead).
 - Keep the file under about 40 lines.
 - If `CLAUDE.md` already exists, do not overwrite it. Show the user what would be added or changed and ask before editing.
 
 ## 4. Write check.sh
 
-- Start from the gate in `references/astro.md`.
+- If `check.sh` already exists, do not edit it, not even a comment. Run it, report whether it passes, and propose any change as a diff for the user to approve.
+- Otherwise, start from the gate in `references/astro.md`.
 - Run each gate command by hand first. Put only the commands that pass into `check.sh`.
+- Keep trial runs away from private files. Before running a command that scans the whole tree (such as `npx prettier --check .`), make sure it cannot read `.env*` or `.claude/settings.local.json`: pass explicit paths, or check that a `.prettierignore` excludes them. If a command's output names one of those files anyway, do not open it, and say so in the report.
 - For each command that fails or is not installed, leave it out and record why. Do not fix unrelated failures as part of setup.
 - The last line is always `echo "GATE: PASS"`.
 - Run `chmod +x check.sh`.
@@ -73,7 +75,7 @@ Do not commit. End with a short report:
 
 - The branch the files were written to
 - The deploy targets detected
-- The three files written, and whether each was created or merged
+- The three files, and for each one: created, merged, or unchanged with proposed changes
 - The gate commands that are in `check.sh`
 - Anything left out and why (a gate command that fails, a rule that did not apply)
 - The `GATE: PASS` output, pasted
