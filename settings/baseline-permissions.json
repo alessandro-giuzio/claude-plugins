@@ -1,0 +1,36 @@
+{
+  "permissions": {
+    "ask": [
+      "Bash(git push)",
+      "Bash(git push *)",
+      "Bash(netlify deploy *)",
+      "Bash(npx netlify deploy *)",
+      "Bash(wrangler deploy *)",
+      "Bash(npx wrangler deploy *)",
+      "Bash(supabase db push *)",
+      "Bash(php artisan migrate *)",
+      "Bash(wp *)",
+      "Bash(composer require *)",
+      "Bash(npm install *)"
+    ],
+    "deny": [
+      "Read(**/.env)",
+      "Read(**/.env.*)",
+      "Edit(**/.env)",
+      "Edit(**/.env.*)",
+      "Read(**/.dev.vars)",
+      "Edit(**/.dev.vars)",
+      "Edit(**/wp-config.php)",
+      "Bash(git push --force *)",
+      "Bash(git push -f *)",
+      "Bash(php artisan migrate:fresh *)",
+      "Bash(php artisan migrate:reset *)",
+      "Bash(php artisan db:wipe *)",
+      "Bash(supabase db reset *)",
+      "Bash(wp db drop *)",
+      "Bash(wp db reset *)",
+      "Bash(docker volume rm *)",
+      "Bash(docker system prune *)"
+    ]
+  }
+}

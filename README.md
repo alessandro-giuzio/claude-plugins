@@ -28,3 +28,7 @@ Update after a new version is pushed:
 3. Validate: `claude plugin validate ./plugins/<name>`.
 4. Bump the version in the plugin's `plugin.json` and in `.claude-plugin/marketplace.json`, and add a changelog line to the plugin's README.
 5. Commit and push.
+
+## Global settings
+
+`settings/` holds my baseline ask and deny rules for `~/.claude/settings.json`, with install steps. See [settings/README.md](settings/README.md).
