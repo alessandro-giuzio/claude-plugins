@@ -1,14 +1,12 @@
 ---
 name: blog-post
 description: >
-  This skill should be used when the user asks to "write the blog post",
-  "write a post about", "draft this idea", "turn this brief idea into a
-  post", pastes an idea from the Monday content brief, or runs /blog-post,
-  in the repo of one of my Astro sites. It plans the post, waits for
-  approval, then writes it as a draft entry in the site's content collection,
-  in my voice, without committing or publishing.
+  Draft a blog post from an idea into the site's Astro content collection, in
+  my voice, after a plan is approved. Use when asked to write or draft a blog
+  post, or when an idea from the Monday content brief is pasted.
+argument-hint: "The idea from the content brief, or a topic"
 metadata:
-  version: "0.1.0"
+  version: "0.1.1"
 ---
 
 # Blog post
@@ -42,10 +40,10 @@ Don't write the post until the user approves or edits the plan.
 ## 3. Write
 
 1. Check the branch: on `main` or `master`, suggest `post/<slug>` and wait for the answer.
-2. Create the file in the collection folder, named by the slug. Never overwrite an existing file.
+2. Create a new file in the collection folder, named by the slug. If the slug is taken, pick another and say so.
 3. Frontmatter exactly as the schema requires. Set the draft field to true if the schema has one; if it doesn't, ask how drafts are kept out of the live site before writing.
 4. Body in my voice: short paragraphs, the planned headings, source links on every fact, no invented numbers or quotes, a local angle where the profile asks for it, the closing checklist.
-5. Images: don't download or generate any. Use the schema's image field with a clearly marked placeholder path and suggest what the image should show, with alt text.
+5. Images: put a clearly marked placeholder path in the schema's image field, and suggest what the image should show, with alt text. The user adds the real image.
 6. If the site has the `web-seo` plugin, apply its `seo-checklist`, and use `schema-generator` only if the site already adds schema to posts.
 
 ## 4. Check
@@ -61,4 +59,4 @@ Don't write the post until the user approves or edits the plan.
 - Placeholders left (image), and anything that needs a fact check.
 - Next steps: read the draft; in a new chat, "use the post-reviewer on <file>"; when published, `/promote` with the live URL.
 
-Never commit, publish, or change the draft flag to false.
+Leave committing, publishing and the draft flag to the user.

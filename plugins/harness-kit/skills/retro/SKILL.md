@@ -1,10 +1,12 @@
 ---
 name: retro
-description: Retrospective on a Claude Code session. Proposes improvements to this repo's harness (check.sh, CLAUDE.md, settings, reviewer rules) and notes for my plugins.
+description: >
+  Retrospective on a Claude Code session. Proposes improvements to this repo's
+  harness (check.sh, CLAUDE.md, settings, reviewer rules) and notes for my plugins.
 disable-model-invocation: true
 argument-hint: "Which session, or what went wrong?"
 metadata:
-  version: "0.6.0"
+  version: "0.6.1"
 ---
 
 # Retro

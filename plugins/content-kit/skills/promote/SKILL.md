@@ -1,13 +1,12 @@
 ---
 name: promote
 description: >
-  This skill should be used when the user asks to "promote this post",
-  "write the LinkedIn post", "Google Business post for this article",
-  "social posts for the new article", or runs /promote with a published URL.
-  It writes a Google Business Profile post and LinkedIn posts in my voice
-  for a published article, with counted lengths.
+  Google Business Profile and LinkedIn posts for a published article. Usage:
+  /promote <url>.
+disable-model-invocation: true
+argument-hint: "URL of the published post"
 metadata:
-  version: "0.1.0"
+  version: "0.1.1"
 ---
 
 # Promote a published post
@@ -35,4 +34,4 @@ Load the `writing-voice` skill and the profile for the post's site.
 
 ## 3. Deliver
 
-Give each post ready to paste, with its character count. Don't publish anything. If the user wants a file, write `promo-<slug>.md` in the working directory.
+Give each post ready to paste, with its character count, for the user to publish. If the user wants a file, write `promo-<slug>.md` in the working directory.

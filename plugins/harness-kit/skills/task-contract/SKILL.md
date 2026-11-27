@@ -1,14 +1,12 @@
 ---
 name: task-contract
 description: >
-  This skill should be used when the user starts a non-trivial change in a
-  repo ("fix", "add", "build", "refactor" something bigger than a one-line
-  edit), asks to "write a task contract", "what's the done-when", "define
-  done for this", or runs /task-contract. It turns the request into a goal,
-  scope, constraints and done-when lines that the verifier agent can check,
-  and waits for the user to confirm before any code changes.
+  Agree what done means before a change: goal, scope, constraints and
+  done-when lines the verifier can check. Use before fixing, adding or
+  refactoring anything bigger than a one-line edit, or when asked for a task
+  contract or done-when.
 metadata:
-  version: "0.6.0"
+  version: "0.6.1"
 ---
 
 # Task contract

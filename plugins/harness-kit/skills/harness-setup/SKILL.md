@@ -1,14 +1,12 @@
 ---
 name: harness-setup
 description: >
-  This skill should be used when the user asks to "set up the harness",
-  "add the harness kit", "add CLAUDE.md and check.sh", "prepare this repo
-  for Claude Code", or runs /harness-setup in a project. It writes a short
-  CLAUDE.md, a check.sh gate and .claude/settings.json permissions, matched
-  to the project's stack. Supports Astro + Tailwind v4, WordPress plugins,
-  and monorepos that contain them.
+  Set up or audit a Claude Code harness in a repo: CLAUDE.md, check.sh and
+  .claude/settings.json matched to its stack (Astro, WordPress plugins,
+  monorepos). Use when asked to set up the harness, add CLAUDE.md and
+  check.sh, or prepare a repo for Claude Code.
 metadata:
-  version: "0.6.0"
+  version: "0.6.1"
 ---
 
 # Harness setup
@@ -87,7 +85,7 @@ Read the reference for every supported part found. Then check what this repo rea
 
 Do not commit. End with a short report:
 
-- First line: `harness-setup 0.6.0`, so the user can see which version ran
+- First line: `harness-setup 0.6.1`, so the user can see which version ran
 - The branch the files were written to
 - The parts found (folder and stack) and the deploy targets detected
 - The three files, and for each one: created, merged, or unchanged with proposed changes
@@ -99,6 +97,6 @@ Do not commit. End with a short report:
 
 ## Rules for this skill
 
-- Never read or edit `.env` or `.dev.vars` files while inspecting the project, and never `wp-config.php`.
-- Never push, deploy or install packages. If a gate tool or a dependency is missing, report it and let the user decide.
-- Never invent a path or a script name. Every path and command written into the harness files must exist in this repo.
+- Inspect the project through its code and config files. Leave `.env`, `.dev.vars` and `wp-config.php` closed (the secrets guard blocks shell access to them too).
+- Report a missing gate tool or dependency with its install command, and let the user install it. Pushing and deploying stay with the user.
+- Write only paths and commands that exist in this repo: check every line of the harness files against the repo before writing it.

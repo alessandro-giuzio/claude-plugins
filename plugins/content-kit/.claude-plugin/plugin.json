@@ -1,9 +1,17 @@
 {
   "name": "content-kit",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Writing for my sites: my Spanish voice and site profiles, a blog post drafted from a content-brief idea into an Astro content collection, Google Business Profile and LinkedIn posts for a published article, and a read-only post reviewer.",
   "author": {
     "name": "Alessandro Giuzio"
   },
-  "keywords": ["content", "blog", "astro", "content-collections", "spanish", "linkedin", "google-business-profile"]
+  "keywords": [
+    "content",
+    "blog",
+    "astro",
+    "content-collections",
+    "spanish",
+    "linkedin",
+    "google-business-profile"
+  ]
 }

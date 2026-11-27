@@ -157,6 +157,7 @@ Limits: it reads the command text, so it's a strong guardrail, not a sandbox. `g
 
 ## Changelog
 
+- 0.6.1: Shorter skill descriptions (they're always in context). Rules in harness-setup rewritten as the behaviour wanted. Guidance from Matt Pocock's writing-for-agents (MIT).
 - 0.6.0: New `/handoff` skill: writes `STATE.md` (goal, state, decisions, risks, next action, suggested skills, references) for the next session. Adapted from Matt Pocock's `handoff` (MIT).
 - 0.5.0: New `/retro` skill: session retrospective proposing harness improvements with evidence and diffs, plus notes for plugin gaps. Adapted from Matt Pocock's `retro` (MIT).
 - 0.4.0: Secrets guard hook: blocks shell commands that read, copy, stage, upload or print `.env*`, `.dev.vars` or `wp-config.php`. Existence checks, `.gitignore` edits and safe git commands stay allowed.

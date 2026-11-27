@@ -1,13 +1,11 @@
 ---
 name: writing-voice
 description: >
-  This skill should be used whenever text is written for one of my sites or
-  channels: blog posts, page copy, Google Business Profile posts, LinkedIn
-  posts, meta descriptions, or when the user asks to "write it in my voice",
-  "make it sound like me", or names agencyga.es. It holds my Spanish writing
-  voice and one profile per site (audience, goal, categories, links).
+  My Spanish writing voice and per-site profiles. Use whenever text is
+  written for my sites or channels (blog posts, page copy, Google Business
+  Profile, LinkedIn, meta descriptions), or when asked to write in my voice.
 metadata:
-  version: "0.1.0"
+  version: "0.1.1"
 ---
 
 # Writing voice

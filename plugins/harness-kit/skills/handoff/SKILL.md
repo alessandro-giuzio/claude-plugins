@@ -1,10 +1,12 @@
 ---
 name: handoff
-description: Write STATE.md so a fresh session can pick up this work: where it stands, decisions, open risks, the next action, and which skills to load.
+description: >
+  Write STATE.md so a fresh session can pick up this work: where it stands,
+  decisions, open risks, the next action, and which skills to load.
 disable-model-invocation: true
 argument-hint: "What will the next session focus on?"
 metadata:
-  version: "0.6.0"
+  version: "0.6.1"
 ---
 
 # Handoff

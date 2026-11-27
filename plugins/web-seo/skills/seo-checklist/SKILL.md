@@ -1,14 +1,12 @@
 ---
 name: seo-checklist
 description: >
-  This skill should be used when creating or editing a page, layout,
-  template or content file on a client website (Astro pages, WordPress
-  templates, Markdown or MDX content), or when the user asks to "check the
-  SEO", "SEO checklist", "is this page SEO-ready", "local SEO", "title and
-  meta", or "hreflang". It holds my on-page and local SEO rules and is
-  applied before a page change is reported as done.
+  My on-page and local SEO rules, applied before a page change is done. Use
+  when creating or editing a page, layout, template or content file on a
+  client site, or when asked to check SEO, title and meta, local SEO or
+  hreflang.
 metadata:
-  version: "0.1.0"
+  version: "0.1.1"
 ---
 
 # SEO checklist

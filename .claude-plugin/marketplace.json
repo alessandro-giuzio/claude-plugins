@@ -11,13 +11,13 @@
       "name": "harness-kit",
       "source": "./plugins/harness-kit",
       "description": "Harness setup (CLAUDE.md, check.sh, permissions), task contracts and a verifier agent. Astro, WordPress plugins, monorepos.",
-      "version": "0.6.0"
+      "version": "0.6.1"
     },
     {
       "name": "web-seo",
       "source": "./plugins/web-seo",
       "description": "My SEO conventions for client sites: JSON-LD schema written into the page, an on-page and local SEO checklist, and a read-only SEO checker.",
-      "version": "0.1.0"
+      "version": "0.1.1"
     },
     {
       "name": "wordpress-kit",
@@ -29,7 +29,7 @@
       "name": "content-kit",
       "source": "./plugins/content-kit",
       "description": "Writing for my sites: Spanish voice and site profiles, blog posts drafted into an Astro content collection, Google Business Profile and LinkedIn posts, and a post reviewer.",
-      "version": "0.1.0"
+      "version": "0.1.1"
     }
   ]
 }

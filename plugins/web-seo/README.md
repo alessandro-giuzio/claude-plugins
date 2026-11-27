@@ -74,4 +74,5 @@ run the SEO checker on what changed
 
 ## Changelog
 
+- 0.1.1: Shorter skill descriptions. schema-generator rules rewritten as the behaviour wanted.
 - 0.1.0: First version. `schema-generator` (moved from my account skill, now writes into the page and follows the site's pattern), `seo-checklist`, `seo-checker` agent.

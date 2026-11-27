@@ -14,7 +14,7 @@ Writing for my sites. The Monday content brief (a scheduled task) researches the
 |---|---|---|---|
 | Skill | `writing-voice` | Knowledge | Whenever text is written for one of my sites or channels |
 | Skill | `blog-post` | Procedure | "write the blog post for this idea", or `/blog-post`, in a site repo |
-| Skill | `promote` | Procedure | "promote this post", or `/promote <url>`, after publishing |
+| Skill | `promote` | Procedure | Only when you type `/promote <url>`, after publishing |
 | Agent | `post-reviewer` | Read-only reviewer | "use the post-reviewer on <file>", before publishing |
 
 ## writing-voice
@@ -43,4 +43,5 @@ Read-only check of a draft: every fact sourced and the source opened, nothing in
 
 ## Changelog
 
+- 0.1.1: `promote` is now manual-only (`/promote <url>`), so its description no longer sits in context. Shorter descriptions; `blog-post` takes the idea as an argument; rules rewritten as the behaviour wanted.
 - 0.1.0: First version. `writing-voice` (agencyga.es profile), `blog-post`, `promote`, `post-reviewer`.
