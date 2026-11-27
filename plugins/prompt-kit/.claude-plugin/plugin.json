@@ -1,0 +1,14 @@
+{
+  "name": "prompt-kit",
+  "version": "0.1.0",
+  "description": "A prompt coach: rewrites a rough prompt so the first answer is usable, for chat requests (code, writing, research), saved prompts (skills, CLAUDE.md, scheduled tasks) and briefs for another agent.",
+  "author": {
+    "name": "Alessandro Giuzio"
+  },
+  "keywords": [
+    "prompting",
+    "prompt-engineering",
+    "skills",
+    "subagents"
+  ]
+}

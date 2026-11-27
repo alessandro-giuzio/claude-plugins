@@ -30,6 +30,12 @@
       "source": "./plugins/content-kit",
       "description": "Writing for my sites: Spanish voice and site profiles, blog posts drafted into an Astro content collection, Google Business Profile and LinkedIn posts, and a post reviewer.",
       "version": "0.1.1"
+    },
+    {
+      "name": "prompt-kit",
+      "source": "./plugins/prompt-kit",
+      "description": "A prompt coach: rewrites a rough prompt so the first answer is usable (chat requests, saved prompts, agent briefs) and says what changed.",
+      "version": "0.1.0"
     }
   ]
 }

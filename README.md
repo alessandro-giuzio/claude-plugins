@@ -12,6 +12,7 @@ In Claude Code, one command at a time:
 /plugin install web-seo@agency-ga
 /plugin install wordpress-kit@agency-ga
 /plugin install content-kit@agency-ga
+/plugin install prompt-kit@agency-ga
 ```
 
 Update after a new version is pushed:
@@ -30,6 +31,7 @@ The repo is private, so the machine needs GitHub access (`gh auth login`).
 | [web-seo](plugins/web-seo) | 0.1.1 | Writes JSON-LD schema into pages, applies my on-page and local SEO checklist, reviews changed pages |
 | [wordpress-kit](plugins/wordpress-kit) | 0.2.0 | `/wordpress-kit:release` for my WordPress plugins (version bump, changelog, checked zip, local tag) and a WordPress security reviewer |
 | [content-kit](plugins/content-kit) | 0.1.1 | My Spanish voice and site profiles, blog post drafts in an Astro content collection, GBP and LinkedIn posts, post reviewer |
+| [prompt-kit](plugins/prompt-kit) | 0.1.0 | A prompt coach: rewrites rough prompts for chats, skills and agent briefs, and says which habit each change applies |
 
 Slash commands are listed with the plugin prefix (`/harness-kit:retro`). Typing the short name (`/retro`) finds the same command in the autocomplete.
 
