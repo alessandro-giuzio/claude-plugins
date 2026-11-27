@@ -5,6 +5,7 @@ Some skills in this plugin are adapted from Matt Pocock's skills (https://github
 | Skill here | Adapted from |
 |---|---|
 | `retro` | `skills/engineering/retro` |
+| `handoff` | `skills/productivity/handoff` |
 
 ## MIT License (mattpocock/skills)
 

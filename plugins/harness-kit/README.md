@@ -17,6 +17,7 @@ Makes Claude Code safe and predictable in a repo. It answers three questions eve
 | Agent | `verifier` | Read-only reviewer | When you ask for it after a change |
 | Hook | secrets guard | Automatic | Before every shell command Claude runs, in every repo |
 | Skill | `retro` | Procedure | Only when you type `/retro` |
+| Skill | `handoff` | Procedure | Only when you type `/handoff` |
 
 ## harness-setup
 
@@ -128,6 +129,12 @@ Done when:
 
 It applies only the changes you approve, and never commits.
 
+## handoff
+
+`/handoff` when you stop mid-task (optionally with what the next session will focus on). It writes `STATE.md` at the repo root: goal, where it stands, decisions with their reasons, open risks, the exact next action, the skills the next session should load, and references to commits and docs instead of copies. Secrets are redacted. An existing `STATE.md` is updated after you see the diff.
+
+Next session: "read STATE.md and continue" (the harness `CLAUDE.md` already tells Claude to read it at session start).
+
 ## Secrets guard (hook)
 
 Runs before every shell command Claude runs, in every repo where harness-kit is enabled. It blocks commands that would read, copy, stage, upload or print a secrets file:
@@ -146,10 +153,11 @@ Limits: it reads the command text, so it's a strong guardrail, not a sandbox. `g
 
 ## Credits
 
-`retro` is adapted from [Matt Pocock's skills](https://github.com/mattpocock/skills) (MIT). See [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
+`retro` and `handoff` are adapted from [Matt Pocock's skills](https://github.com/mattpocock/skills) (MIT). See [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
 
 ## Changelog
 
+- 0.6.0: New `/handoff` skill: writes `STATE.md` (goal, state, decisions, risks, next action, suggested skills, references) for the next session. Adapted from Matt Pocock's `handoff` (MIT).
 - 0.5.0: New `/retro` skill: session retrospective proposing harness improvements with evidence and diffs, plus notes for plugin gaps. Adapted from Matt Pocock's `retro` (MIT).
 - 0.4.0: Secrets guard hook: blocks shell commands that read, copy, stage, upload or print `.env*`, `.dev.vars` or `wp-config.php`. Existence checks, `.gitignore` edits and safe git commands stay allowed.
 - 0.3.0: New `task-contract` skill: goal, scope, constraints, done-when lines written against the goal, what needs a manual check, and a ready-to-paste verifier prompt at the end.

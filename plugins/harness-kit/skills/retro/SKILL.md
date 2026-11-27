@@ -4,7 +4,7 @@ description: Retrospective on a Claude Code session. Proposes improvements to th
 disable-model-invocation: true
 argument-hint: "Which session, or what went wrong?"
 metadata:
-  version: "0.5.0"
+  version: "0.6.0"
 ---
 
 # Retro
