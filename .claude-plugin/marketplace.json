@@ -24,6 +24,12 @@
       "source": "./plugins/wordpress-kit",
       "description": "Procedures for my custom WordPress plugins: /release bumps the version, writes the changelog, builds and checks the zip, and tags locally.",
       "version": "0.1.0"
+    },
+    {
+      "name": "content-kit",
+      "source": "./plugins/content-kit",
+      "description": "Writing for my sites: Spanish voice and site profiles, blog posts drafted into an Astro content collection, Google Business Profile and LinkedIn posts, and a post reviewer.",
+      "version": "0.1.0"
     }
   ]
 }

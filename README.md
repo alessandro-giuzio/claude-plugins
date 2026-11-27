@@ -11,6 +11,7 @@ In Claude Code, one command at a time:
 /plugin install harness-kit@agency-ga
 /plugin install web-seo@agency-ga
 /plugin install wordpress-kit@agency-ga
+/plugin install content-kit@agency-ga
 ```
 
 Update after a new version is pushed:
@@ -28,6 +29,7 @@ The repo is private, so the machine needs GitHub access (`gh auth login`).
 | [harness-kit](plugins/harness-kit) | 0.3.0 | Sets up the rules, the definition of done and safe permissions in a repo; agrees what "done" means before a change; verifies the work after it |
 | [web-seo](plugins/web-seo) | 0.1.0 | Writes JSON-LD schema into pages, applies my on-page and local SEO checklist, reviews changed pages |
 | [wordpress-kit](plugins/wordpress-kit) | 0.1.0 | `/release` for my WordPress plugins: version bump, changelog, checked zip, local tag |
+| [content-kit](plugins/content-kit) | 0.1.0 | My Spanish voice and site profiles, blog post drafts in an Astro content collection, GBP and LinkedIn posts, post reviewer |
 
 ### How they fit together
 
@@ -38,6 +40,8 @@ A typical change on a client site:
 3. **During the change:** `seo-checklist` (web-seo) loads when a page is edited; `schema-generator` adds structured data.
 4. **After the change:** the `verifier` agent (harness-kit) checks the work against the contract; `seo-checker` (web-seo) reviews the changed pages.
 5. **For a WordPress plugin release:** `/release` (wordpress-kit).
+
+For blog content: the Monday content brief (a scheduled task) proposes ideas → `blog-post` (content-kit) drafts the chosen one → `post-reviewer` checks it → publish → `promote` writes the GBP and LinkedIn posts.
 
 ## Shared rules
 
