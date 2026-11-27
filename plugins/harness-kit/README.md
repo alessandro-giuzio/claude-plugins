@@ -13,11 +13,11 @@ Makes Claude Code safe and predictable in a repo. It answers three questions eve
 | Component | Name | Type | Runs |
 |---|---|---|---|
 | Skill | `harness-setup` | Procedure | When you ask to set up the harness, or `/harness-kit:harness-setup` |
-| Skill | `task-contract` | Procedure | Before a non-trivial change, or `/task-contract` |
+| Skill | `task-contract` | Procedure | Before a non-trivial change, or `/harness-kit:task-contract` |
 | Agent | `verifier` | Read-only reviewer | When you ask for it after a change |
 | Hook | secrets guard | Automatic | Before every shell command Claude runs, in every repo |
-| Skill | `retro` | Procedure | Only when you type `/retro` |
-| Skill | `handoff` | Procedure | Only when you type `/handoff` |
+| Skill | `retro` | Procedure | Only when you type `/harness-kit:retro` |
+| Skill | `handoff` | Procedure | Only when you type `/harness-kit:handoff` |
 
 ## harness-setup
 
@@ -113,7 +113,7 @@ Done when:
 
 ## retro
 
-`/retro` after a session (optionally with what went wrong). It reads the session and the repo's harness, then proposes improvements, each with evidence from the session and a diff:
+`/harness-kit:retro` after a session (optionally with what went wrong). It reads the session and the repo's harness, then proposes improvements, each with evidence from the session and a diff:
 
 | Category | Typical fix |
 |---|---|
@@ -131,7 +131,7 @@ It applies only the changes you approve, and never commits.
 
 ## handoff
 
-`/handoff` when you stop mid-task (optionally with what the next session will focus on). It writes `STATE.md` at the repo root: goal, where it stands, decisions with their reasons, open risks, the exact next action, the skills the next session should load, and references to commits and docs instead of copies. Secrets are redacted. An existing `STATE.md` is updated after you see the diff.
+`/harness-kit:handoff` when you stop mid-task (optionally with what the next session will focus on). It writes `STATE.md` at the repo root: goal, where it stands, decisions with their reasons, open risks, the exact next action, the skills the next session should load, and references to commits and docs instead of copies. Secrets are redacted. An existing `STATE.md` is updated after you see the diff.
 
 Next session: "read STATE.md and continue" (the harness `CLAUDE.md` already tells Claude to read it at session start).
 

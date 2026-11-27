@@ -28,10 +28,12 @@ The repo is private, so the machine needs GitHub access (`gh auth login`).
 |---|---|---|
 | [harness-kit](plugins/harness-kit) | 0.6.1 | Sets up the rules, the definition of done and safe permissions in a repo; agrees what "done" means before a change; verifies the work after it; guards secrets files from shell commands |
 | [web-seo](plugins/web-seo) | 0.1.1 | Writes JSON-LD schema into pages, applies my on-page and local SEO checklist, reviews changed pages |
-| [wordpress-kit](plugins/wordpress-kit) | 0.2.0 | `/release` for my WordPress plugins (version bump, changelog, checked zip, local tag) and a WordPress security reviewer |
+| [wordpress-kit](plugins/wordpress-kit) | 0.2.0 | `/wordpress-kit:release` for my WordPress plugins (version bump, changelog, checked zip, local tag) and a WordPress security reviewer |
 | [content-kit](plugins/content-kit) | 0.1.1 | My Spanish voice and site profiles, blog post drafts in an Astro content collection, GBP and LinkedIn posts, post reviewer |
 
-### How they fit together
+#Slash commands are listed with the plugin prefix (`/harness-kit:retro`). Typing the short name (`/retro`) finds the same command in the autocomplete.
+
+## How they fit together
 
 A typical change on a client site:
 
@@ -39,14 +41,14 @@ A typical change on a client site:
 2. **Before the change:** `task-contract` (harness-kit) agrees the goal and the done-when lines.
 3. **During the change:** `seo-checklist` (web-seo) loads when a page is edited; `schema-generator` adds structured data.
 4. **After the change:** the `verifier` agent (harness-kit) checks the work against the contract; `seo-checker` (web-seo) reviews the changed pages.
-5. **For WordPress plugins:** `wp-security-reviewer` on changed PHP, then `/release` (wordpress-kit).
+5. **For WordPress plugins:** `wp-security-reviewer` on changed PHP, then `/wordpress-kit:release`.
 
 For blog content: the Monday content brief (a scheduled task) proposes ideas → `blog-post` (content-kit) drafts the chosen one → `post-reviewer` checks it → publish → `promote` writes the GBP and LinkedIn posts.
 
 ## Shared rules
 
 - Skills never overwrite existing files without approval: they merge, propose diffs and report.
-- Skills never commit, push or install packages. One exception: wordpress-kit's `/release` commits and tags after approval, and never pushes.
+- Skills never commit, push or install packages. One exception: wordpress-kit's `/wordpress-kit:release` commits and tags after approval, and never pushes.
 - Every version change bumps `plugin.json`, `.claude-plugin/marketplace.json` and the plugin's changelog.
 
 ## Working on a plugin

@@ -13,8 +13,8 @@ Writing for my sites. The Monday content brief (a scheduled task) researches the
 | Component | Name | Type | Runs |
 |---|---|---|---|
 | Skill | `writing-voice` | Knowledge | Whenever text is written for one of my sites or channels |
-| Skill | `blog-post` | Procedure | "write the blog post for this idea", or `/blog-post`, in a site repo |
-| Skill | `promote` | Procedure | Only when you type `/promote <url>`, after publishing |
+| Skill | `blog-post` | Procedure | "write the blog post for this idea", or `/content-kit:blog-post`, in a site repo |
+| Skill | `promote` | Procedure | Only when you type `/content-kit:promote <url>`, after publishing |
 | Agent | `post-reviewer` | Read-only reviewer | "use the post-reviewer on <file>", before publishing |
 
 ## writing-voice
@@ -29,7 +29,7 @@ Profiles: `agencyga.md` (agencyga.es). Planned: `giuz.md`, when giuz.io publishe
 2. **Plans and waits:** title (max 60, counted), slug, keywords, category from the allowed set, H2/H3 outline (Search Console query wording as an H2 or FAQ when the brief has one), internal links, sources, meta description (140 to 160, counted).
 3. **Writes** after approval: on a `post/<slug>` branch, a new file with frontmatter matching the schema and the draft flag on, the body in my voice with source links, a placeholder image with suggested alt text.
 4. **Checks:** `./check.sh` or `astro check`, lengths, internal links.
-5. **Reports** and suggests the reviewer, then `/promote` after publishing.
+5. **Reports** and suggests the reviewer, then `/content-kit:promote` after publishing.
 
 Never commits, publishes or turns the draft flag off.
 

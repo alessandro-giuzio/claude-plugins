@@ -1,6 +1,6 @@
 # wordpress-kit
 
-Procedures for my custom WordPress plugins: `/release` takes a clean repo to a versioned, checked zip and a local tag; `wp-security-reviewer` checks changed PHP for the security mistakes that matter in WordPress.
+Procedures for my custom WordPress plugins: `/wordpress-kit:release` takes a clean repo to a versioned, checked zip and a local tag; `wp-security-reviewer` checks changed PHP for the security mistakes that matter in WordPress.
 
 ## Install
 
@@ -12,10 +12,10 @@ Procedures for my custom WordPress plugins: `/release` takes a clean repo to a v
 
 | Component | Name | Type | Runs |
 |---|---|---|---|
-| Skill | `release` | Procedure | Only when you type `/release` (never on its own) |
+| Skill | `release` | Procedure | Only when you type `/wordpress-kit:release` (never on its own) |
 | Agent | `wp-security-reviewer` | Read-only reviewer | When you ask for a security review, or before a release |
 
-## /release
+## /wordpress-kit:release
 
 1. **Checks the ground:** clean working tree, the branch it's cutting from, `./check.sh` passes. Asks which plugin if the repo has several.
 2. **Reads the version** from every place it lives: plugin header, `*_VERSION` constant, `Stable tag` in readme.txt, `package.json` / `composer.json` / `block.json` when versioned, latest git tag. Any mismatch stops the release.
@@ -57,7 +57,7 @@ run the WordPress security review on this change
 
 ## Rules
 
-- `/release` is the only skill in my plugins allowed to commit, and only after approval.
+- `/wordpress-kit:release` is the only skill in my plugins allowed to commit, and only after approval.
 - Out of scope for now: GitHub releases and WordPress.org SVN deploys.
 
 ## Changelog
