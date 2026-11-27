@@ -8,7 +8,7 @@ description: >
   scope, constraints and done-when lines that the verifier agent can check,
   and waits for the user to confirm before any code changes.
 metadata:
-  version: "0.4.0"
+  version: "0.5.0"
 ---
 
 # Task contract
