@@ -26,7 +26,7 @@ The repo is private, so the machine needs GitHub access (`gh auth login`).
 
 | Plugin | Version | In one line |
 |---|---|---|
-| [harness-kit](plugins/harness-kit) | 0.3.0 | Sets up the rules, the definition of done and safe permissions in a repo; agrees what "done" means before a change; verifies the work after it |
+| [harness-kit](plugins/harness-kit) | 0.4.0 | Sets up the rules, the definition of done and safe permissions in a repo; agrees what "done" means before a change; verifies the work after it; guards secrets files from shell commands |
 | [web-seo](plugins/web-seo) | 0.1.0 | Writes JSON-LD schema into pages, applies my on-page and local SEO checklist, reviews changed pages |
 | [wordpress-kit](plugins/wordpress-kit) | 0.1.0 | `/release` for my WordPress plugins: version bump, changelog, checked zip, local tag |
 | [content-kit](plugins/content-kit) | 0.1.0 | My Spanish voice and site profiles, blog post drafts in an Astro content collection, GBP and LinkedIn posts, post reviewer |

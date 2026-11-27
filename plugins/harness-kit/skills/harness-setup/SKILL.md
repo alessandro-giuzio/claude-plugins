@@ -8,7 +8,7 @@ description: >
   to the project's stack. Supports Astro + Tailwind v4, WordPress plugins,
   and monorepos that contain them.
 metadata:
-  version: "0.3.0"
+  version: "0.4.0"
 ---
 
 # Harness setup
@@ -87,7 +87,7 @@ Read the reference for every supported part found. Then check what this repo rea
 
 Do not commit. End with a short report:
 
-- First line: `harness-setup 0.3.0`, so the user can see which version ran
+- First line: `harness-setup 0.4.0`, so the user can see which version ran
 - The branch the files were written to
 - The parts found (folder and stack) and the deploy targets detected
 - The three files, and for each one: created, merged, or unchanged with proposed changes

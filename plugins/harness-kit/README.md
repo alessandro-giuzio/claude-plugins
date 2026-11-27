@@ -15,6 +15,7 @@ Makes Claude Code safe and predictable in a repo. It answers three questions eve
 | Skill | `harness-setup` | Procedure | When you ask to set up the harness, or `/harness-kit:harness-setup` |
 | Skill | `task-contract` | Procedure | Before a non-trivial change, or `/task-contract` |
 | Agent | `verifier` | Read-only reviewer | When you ask for it after a change |
+| Hook | secrets guard | Automatic | Before every shell command Claude runs, in every repo |
 
 ## harness-setup
 
@@ -108,8 +109,25 @@ Done when:
 - …
 ```
 
+## Secrets guard (hook)
+
+Runs before every shell command Claude runs, in every repo where harness-kit is enabled. It blocks commands that would read, copy, stage, upload or print a secrets file:
+
+- `.env` and `.env.*` (not `.env.example`, `.env.sample`, `.env.template`, `.env.dist`)
+- `.dev.vars` (Cloudflare local secrets)
+- `wp-config.php`
+
+Blocked, for example: `cat .env`, `grep DB_ .env`, `source .env`, `cp .env …`, `git add .env`, `git show HEAD:.env`, `curl -F f=@.env …`, a Python or Node one-liner that opens `.env`.
+
+Allowed: existence checks and listings (`ls`, `test -f`, `[ -f … ]`, `find`), writing the file *name* into `.gitignore` (`echo`, `printf`), and git commands that don't show contents (`git ls-files`, `git check-ignore`, `git status`, `git rm --cached`).
+
+Why a hook: `Read(.env)` deny rules in settings stop Claude's file reader, but not a shell command that opens the same file. The hook covers that path.
+
+Limits: it reads the command text, so it's a strong guardrail, not a sandbox. `git add -A` can still stage a secrets file that isn't in `.gitignore`, which is why harness-setup checks `.gitignore` too. It needs `python3`; if the input can't be parsed, the command is allowed and the settings rules still apply.
+
 ## Changelog
 
+- 0.4.0: Secrets guard hook: blocks shell commands that read, copy, stage, upload or print `.env*`, `.dev.vars` or `wp-config.php`. Existence checks, `.gitignore` edits and safe git commands stay allowed.
 - 0.3.0: New `task-contract` skill: goal, scope, constraints, done-when lines written against the goal, what needs a manual check, and a ready-to-paste verifier prompt at the end.
 - 0.2.2: Verifier: rule breaks the change introduced are blocking; pre-existing ones in touched files are listed, not blocking. Reads done-when lines against the goal. Verdict on the first line, then every check with evidence. Can use `git show` to compare with the parent commit.
 - 0.2.1: WordPress reference: `WPINC` guards count as direct-access guards; wording for repos with several plugins; compares `Requires PHP` with the local PHP; phpcs and `php -l` skip `node_modules/` and `build/`.

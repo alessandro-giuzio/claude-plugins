@@ -1,6 +1,6 @@
 {
   "name": "harness-kit",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Set up a Claude Code harness in a repo (CLAUDE.md, check.sh, safe permissions), agree what done means before a change (task contract), and verify the work before it is called done. Astro, WordPress plugins and monorepos.",
   "author": {
     "name": "Alessandro Giuzio"

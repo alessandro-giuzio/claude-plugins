@@ -1,0 +1,17 @@
+{
+  "description": "harness-kit secrets guard: blocks shell commands that would read, copy, stage or print .env files, .dev.vars or wp-config.php.",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/hooks/secrets_guard.py\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}
