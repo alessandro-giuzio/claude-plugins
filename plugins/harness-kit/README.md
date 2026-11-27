@@ -1,34 +1,112 @@
 # harness-kit
 
-Sets up a Claude Code harness in a client repo, and checks work before it is called done.
+Makes Claude Code safe and predictable in a repo. It answers three questions every session needs: **where do things live and what are the rules**, **what counts as done**, and **what must never happen**. Then it helps agree on "done" before a change and checks the work after it.
+
+## Install
+
+```
+/plugin install harness-kit@agency-ga
+```
 
 ## What's inside
 
-| Component | Name | What it does |
+| Component | Name | Type | Runs |
+|---|---|---|---|
+| Skill | `harness-setup` | Procedure | When you ask to set up the harness, or `/harness-kit:harness-setup` |
+| Skill | `task-contract` | Procedure | Before a non-trivial change, or `/task-contract` |
+| Agent | `verifier` | Read-only reviewer | When you ask for it after a change |
+
+## harness-setup
+
+Writes three files at the repo root, matched to the stack it finds:
+
+| File | What it holds |
+|---|---|
+| `CLAUDE.md` | The map (where things live) and the hard rules for this stack, under about 40 lines (60 for a monorepo) |
+| `check.sh` | The gate: the checks that must pass before anything is called done. Ends with `GATE: PASS` |
+| `.claude/settings.json` | Permissions: what runs freely, what asks first (push, deploys, migrations), what is blocked (secrets, force push, destructive commands) |
+
+What it does, in order:
+
+1. Finds the repo root and every part of the repo (single project or monorepo). Checks the branch: on `main` it suggests a new branch first.
+2. Reads the project before writing anything: scripts, installed check tools, folders, deploy targets (Netlify, Cloudflare, Coolify), existing harness files, `.gitignore`.
+3. Writes `CLAUDE.md`, `check.sh` and `.claude/settings.json`. Only real paths and commands that exist in the repo. Only gate commands that pass when tried by hand.
+4. Checks `.gitignore` covers env files (and `.wrangler/`, `.dev.vars` for Cloudflare, `vendor/` for Composer).
+5. Runs `./check.sh` to prove the gate passes.
+6. Reports: version, branch, parts found, each file created / merged / unchanged, what was left out and why, with the install command where one would fix it.
+
+What it never does:
+
+- Overwrite an existing `CLAUDE.md`, `check.sh` or `.gitignore`: it proposes a diff instead. Existing `settings.json` is merged, never shrunk.
+- Touch `.claude/settings.local.json`, `.env` or `.dev.vars` files.
+- Install packages, commit or push.
+
+Supported stacks:
+
+| Stack | Reference | Gate (when the tools are installed) |
 |---|---|---|
-| Skill | `harness-setup` | Writes `CLAUDE.md`, `check.sh` and `.claude/settings.json` for the repo's stack. Runs the gate to prove it passes. |
-| Skill | `task-contract` | Turns a request into goal, scope, constraints and done-when lines before any code changes. Ends with a ready-to-paste verifier prompt. |
-| Agent | `verifier` | Read-only reviewer. Runs `./check.sh`, checks the done-when lines, replies ACCEPT or REJECT. |
+| Astro + Tailwind v4 (v3 handled) | `references/astro.md` | `astro check`, Prettier, `npm run build` |
+| WordPress plugin, at the root or in a subfolder | `references/wordpress-plugin.md` | `php -l`, phpcs with WordPress Coding Standards |
+| Monorepos with any of the above | (SKILL.md) | One block per part, each run from its folder |
+| Parts without a reference (Vue package, PHP library) | (SKILL.md) | Only the test and build scripts they already have |
 
-## Use
+Planned: WordPress site, Vue 3 + TypeScript, Laravel.
 
-In a project root:
+Example:
 
-- `/harness-setup` or "set up the harness in this repo"
-- "write a task contract for this" or `/task-contract`, before a change
-- "use the verifier on this change", after it
+```
+set up the harness in this repo
+```
 
-## Supported stacks
+## task-contract
 
-- Astro + Tailwind v4 (`references/astro.md`)
-- WordPress plugin, at the repo root or in a subfolder (`references/wordpress-plugin.md`)
-- Monorepos containing any of the above. Parts without a reference (for example a Vue package or a plain PHP library) get their own existing test and build scripts in the gate.
+Turns a request into a short contract before any code changes:
 
-Planned: WordPress site, Vue 3 + TypeScript, Laravel. Each one is a new file in `skills/harness-setup/references/`.
+```
+Goal: what is true afterwards, as an outcome someone would notice
+Scope: files or folders expected to change
+Constraints: what must not change
+Done when:
+- ./check.sh prints GATE: PASS
+- 1 to 3 checks tied to the goal
+Not verifiable here: what needs a manual check, with the steps
+Needs approval: push, deploy, migrations
+If blocked: stop, write what was tried to STATE.md
+```
 
-## What stays in the repo
+- Done-when lines name behaviour, not edits, and are written against the goal: a line that can pass while the goal fails is rejected.
+- It waits for your "ok" before any code changes.
+- When the work is done, it gives you a ready-to-paste prompt for the verifier.
 
-The three generated files are committed per project. Project-specific skills (component conventions, release steps) also stay in that repo's `.claude/skills/`.
+Example:
+
+```
+write a task contract for this: the vCard download is missing the email and phone
+```
+
+## verifier
+
+A second opinion from an agent that didn't write the change. Read-only: it never edits a file.
+
+It checks, in order:
+
+1. `./check.sh` passes.
+2. Every done-when line has evidence, read against the goal.
+3. No test was deleted, skipped or weakened.
+4. Nothing outside the scope was touched.
+5. Hard rules in `CLAUDE.md`: broken by the change → blocking; already broken before the change → listed as "Pre-existing", not blocking (unless the task names it).
+
+Reply: `ACCEPT` or `REJECT: <reason>` on the first line, then every check with evidence, then "Pre-existing" and "Not verified" when they apply.
+
+Example, in a new chat:
+
+```
+Use the verifier on the last commit (git show HEAD).
+Goal: …
+Done when:
+- ./check.sh prints GATE: PASS
+- …
+```
 
 ## Changelog
 
