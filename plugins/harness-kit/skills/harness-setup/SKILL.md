@@ -6,7 +6,7 @@ description: >
   monorepos). Use when asked to set up the harness, add CLAUDE.md and
   check.sh, or prepare a repo for Claude Code.
 metadata:
-  version: "0.6.1"
+  version: "0.6.2"
 ---
 
 # Harness setup
@@ -73,6 +73,7 @@ Read the reference for every supported part found. Then check what this repo rea
 ## 6. Check .gitignore
 
 - If `.gitignore` does not cover `.env.*` (only `.env`, or a list of named env files), propose adding `.env.*` and `!.env.example` as a diff. Do not edit `.gitignore` without approval.
+- Add `STATE.md` to the same proposal: the `handoff` skill writes it for the next session, and it stays local by default. Skip it if `git ls-files STATE.md` shows the repo already tracks it, and say so.
 - Add to the same proposal any stack-specific line a reference lists and the repo is missing (for example `.wrangler/` and `.dev.vars` for Cloudflare, `vendor/` for Composer).
 - Run `git ls-files '.env*'`. If an env file other than `.env.example` is already tracked, flag it at the top of the report: ignoring it now does not remove it from history.
 
@@ -85,7 +86,7 @@ Read the reference for every supported part found. Then check what this repo rea
 
 Do not commit. End with a short report:
 
-- First line: `harness-setup 0.6.1`, so the user can see which version ran
+- First line: `harness-setup 0.6.2`, so the user can see which version ran
 - The branch the files were written to
 - The parts found (folder and stack) and the deploy targets detected
 - The three files, and for each one: created, merged, or unchanged with proposed changes

@@ -6,7 +6,7 @@ description: >
 disable-model-invocation: true
 argument-hint: "What will the next session focus on?"
 metadata:
-  version: "0.6.1"
+  version: "0.6.2"
 ---
 
 # Handoff
@@ -57,6 +57,7 @@ Rules for the content:
 - Decisions keep their reason, so the next session doesn't reopen them. Carry over decisions from an existing `STATE.md` that still hold; drop ones that were reversed and say so.
 - "Next action" is concrete enough to run without rereading the conversation.
 - Suggested skills name real skills available in this setup (for example `task-contract`, the `verifier` agent, `web-seo:seo-checklist`, `wp-security-reviewer`).
+- Record only what this session saw. Reviews often run in another chat: if the verifier's verdict isn't in this conversation, write "Verifier: not run in this session (paste the verdict if it ran elsewhere)" under Open risks, and don't make "run the verifier" the next action on that basis alone.
 - Replace every secret, token, password and personal detail with `<REDACTED>`.
 - Keep it under about 60 lines.
 

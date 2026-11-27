@@ -11,7 +11,7 @@
       "name": "harness-kit",
       "source": "./plugins/harness-kit",
       "description": "Harness setup (CLAUDE.md, check.sh, permissions), task contracts and a verifier agent. Astro, WordPress plugins, monorepos.",
-      "version": "0.6.1"
+      "version": "0.6.2"
     },
     {
       "name": "web-seo",

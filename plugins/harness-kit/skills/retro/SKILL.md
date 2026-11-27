@@ -6,7 +6,7 @@ description: >
 disable-model-invocation: true
 argument-hint: "Which session, or what went wrong?"
 metadata:
-  version: "0.6.1"
+  version: "0.6.2"
 ---
 
 # Retro

@@ -34,7 +34,7 @@ What it does, in order:
 1. Finds the repo root and every part of the repo (single project or monorepo). Checks the branch: on `main` it suggests a new branch first.
 2. Reads the project before writing anything: scripts, installed check tools, folders, deploy targets (Netlify, Cloudflare, Coolify), existing harness files, `.gitignore`.
 3. Writes `CLAUDE.md`, `check.sh` and `.claude/settings.json`. Only real paths and commands that exist in the repo. Only gate commands that pass when tried by hand.
-4. Checks `.gitignore` covers env files (and `.wrangler/`, `.dev.vars` for Cloudflare, `vendor/` for Composer).
+4. Checks `.gitignore` covers env files and `STATE.md` (and `.wrangler/`, `.dev.vars` for Cloudflare, `vendor/` for Composer).
 5. Runs `./check.sh` to prove the gate passes.
 6. Reports: version, branch, parts found, each file created / merged / unchanged, what was left out and why, with the install command where one would fix it.
 
@@ -48,7 +48,7 @@ Supported stacks:
 
 | Stack | Reference | Gate (when the tools are installed) |
 |---|---|---|
-| Astro + Tailwind v4 (v3 handled) | `references/astro.md` | `astro check`, Prettier, `npm run build` |
+| Astro + Tailwind v4 (v3 handled) | `references/astro.md` | `astro check`, Prettier, `npm run build` (quiet unless it fails) |
 | WordPress plugin, at the root or in a subfolder | `references/wordpress-plugin.md` | `php -l`, phpcs with WordPress Coding Standards |
 | Monorepos with any of the above | (SKILL.md) | One block per part, each run from its folder |
 | Parts without a reference (Vue package, PHP library) | (SKILL.md) | Only the test and build scripts they already have |
@@ -66,6 +66,7 @@ set up the harness in this repo
 Turns a request into a short contract before any code changes:
 
 ```
+Branch: the current one, or a proposed new one when you're on the default branch (created after your ok)
 Goal: what is true afterwards, as an outcome someone would notice
 Scope: files or folders expected to change
 Constraints: what must not change
@@ -131,7 +132,7 @@ It applies only the changes you approve, and never commits.
 
 ## handoff
 
-`/harness-kit:handoff` when you stop mid-task (optionally with what the next session will focus on). It writes `STATE.md` at the repo root: goal, where it stands, decisions with their reasons, open risks, the exact next action, the skills the next session should load, and references to commits and docs instead of copies. Secrets are redacted. An existing `STATE.md` is updated after you see the diff.
+`/harness-kit:handoff` when you stop mid-task (optionally with what the next session will focus on). It writes `STATE.md` at the repo root: goal, where it stands, decisions with their reasons, open risks, the exact next action, the skills the next session should load, and references to commits and docs instead of copies. Secrets are redacted. It records only what the session saw: a verifier verdict from another chat shows as "not run in this session" until you paste it. An existing `STATE.md` is updated after you see the diff.
 
 Next session: "read STATE.md and continue" (the harness `CLAUDE.md` already tells Claude to read it at session start).
 
@@ -157,6 +158,7 @@ Limits: it reads the command text, so it's a strong guardrail, not a sandbox. `g
 
 ## Changelog
 
+- 0.6.2: task-contract adds a Branch line and, on the default branch, creates the proposed branch after your ok. handoff no longer tells the next session to rerun a verifier that ran in another chat. harness-setup proposes `STATE.md` for `.gitignore`, and the Astro gate builds quietly (log shown only on failure). From the CoffeeSoul test run.
 - 0.6.1: Shorter skill descriptions (they're always in context). Rules in harness-setup rewritten as the behaviour wanted. Guidance from Matt Pocock's writing-for-agents (MIT).
 - 0.6.0: New `/handoff` skill: writes `STATE.md` (goal, state, decisions, risks, next action, suggested skills, references) for the next session. Adapted from Matt Pocock's `handoff` (MIT).
 - 0.5.0: New `/retro` skill: session retrospective proposing harness improvements with evidence and diffs, plus notes for plugin gaps. Adapted from Matt Pocock's `retro` (MIT).

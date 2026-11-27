@@ -6,7 +6,7 @@ description: >
   refactoring anything bigger than a one-line edit, or when asked for a task
   contract or done-when.
 metadata:
-  version: "0.6.1"
+  version: "0.6.2"
 ---
 
 # Task contract
@@ -17,6 +17,7 @@ Skip it for trivial edits (a typo, a one-line config change) unless the user ask
 
 ## 1. Read the ground rules
 
+- The branch: `git branch --show-current`, and the default branch (`git symbolic-ref --short refs/remotes/origin/HEAD`, else `main` or `master`).
 - `CLAUDE.md`: the hard rules and where things live.
 - `check.sh`: what the gate runs. If there is no `check.sh`, say so: the contract can't use the gate, and suggest the `harness-setup` skill.
 - `STATE.md`, if it exists: work already in progress that this task may continue or conflict with.
@@ -27,6 +28,7 @@ Skip it for trivial edits (a typo, a one-line config change) unless the user ask
 Use exactly these headings:
 
 ```
+Branch: <current branch; on the default branch, a proposed new one, e.g. feat/<short-slug> or fix/<short-slug>>
 Goal: <what is true afterwards, as an outcome a user or developer would notice, not the implementation>
 Scope: <files or folders expected to change>
 Constraints: <what must not change; any CLAUDE.md hard rule this task is likely to touch>
@@ -48,6 +50,8 @@ Rules for the done-when lines:
 ## 3. Confirm
 
 Show the contract and ask the user to confirm or edit it. Don't change any code until they confirm. A short "ok" counts.
+
+If the contract proposed a new branch, run `git switch -c <name>` right after the ok, before the first edit. Creating a branch is not a commit. If the user wants to stay on the current branch, keep it and name the branch in "Needs approval" next to push.
 
 If the task will span more than one session, offer to copy the contract into `STATE.md`. Don't create or edit `STATE.md` without that yes.
 

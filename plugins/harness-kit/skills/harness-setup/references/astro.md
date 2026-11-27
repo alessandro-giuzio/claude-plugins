@@ -45,7 +45,10 @@ Notes:
 set -e
 npx astro check
 npx prettier --check .
-npm run build
+# Build quietly: show the log only when the build fails.
+log="$(mktemp)"
+if ! npm run build >"$log" 2>&1; then tail -n 60 "$log"; rm -f "$log"; exit 1; fi
+rm -f "$log"
 echo "GATE: PASS"
 ```
 
@@ -54,6 +57,7 @@ Notes:
 - Before trying `npx prettier --check .`, check that a `.prettierignore` excludes `.env*` and `.claude/`. If there is none, run Prettier on `src/` only.
 - `npx prettier --check .` only belongs here if `prettier` is a dependency and the repo already passes it. A repo that has never been formatted will fail on hundreds of files; leave it out and report it.
 - If `package.json` has its own `check` or `lint` script, prefer `npm run <script>` over the raw command.
+- The build runs quietly because image and integration logs can run to hundreds of lines and bury the result. If the build prints warnings the project relies on (for example an SEO integration's checks), add `grep -iE 'warn|error' "$log" || true` before the `rm` on the pass path, so only those lines show.
 
 ## .claude/settings.json
 
