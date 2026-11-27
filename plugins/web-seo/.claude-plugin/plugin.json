@@ -1,0 +1,9 @@
+{
+  "name": "web-seo",
+  "version": "0.1.0",
+  "description": "My SEO conventions for client sites (Astro and WordPress): JSON-LD schema written into the page, an on-page and local SEO checklist, and a read-only checker for changed pages.",
+  "author": {
+    "name": "Alessandro Giuzio"
+  },
+  "keywords": ["seo", "schema", "json-ld", "local-seo", "astro", "wordpress"]
+}
