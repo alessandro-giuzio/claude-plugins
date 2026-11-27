@@ -8,6 +8,7 @@ Private marketplace `agency-ga`: my own Claude Code plugins.
 /plugin marketplace add alessandro-giuzio/claude-plugins
 /plugin install harness-kit@agency-ga
 /plugin install web-seo@agency-ga
+/plugin install wordpress-kit@agency-ga
 ```
 
 Update after a new version is pushed:
@@ -22,6 +23,7 @@ Update after a new version is pushed:
 |---|---|---|
 | [harness-kit](plugins/harness-kit) | 0.3.0 | Harness setup (Astro, WordPress plugins, monorepos), task contracts, verifier agent |
 | [web-seo](plugins/web-seo) | 0.1.0 | Schema generator, SEO checklist, SEO checker agent (Astro and WordPress client sites) |
+| [wordpress-kit](plugins/wordpress-kit) | 0.1.0 | `/release` for my WordPress plugins: version bump, changelog, checked zip, local tag |
 
 ## Working on a plugin
 

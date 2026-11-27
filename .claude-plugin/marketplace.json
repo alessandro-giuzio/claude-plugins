@@ -18,6 +18,12 @@
       "source": "./plugins/web-seo",
       "description": "My SEO conventions for client sites: JSON-LD schema written into the page, an on-page and local SEO checklist, and a read-only SEO checker.",
       "version": "0.1.0"
+    },
+    {
+      "name": "wordpress-kit",
+      "source": "./plugins/wordpress-kit",
+      "description": "Procedures for my custom WordPress plugins: /release bumps the version, writes the changelog, builds and checks the zip, and tags locally.",
+      "version": "0.1.0"
     }
   ]
 }
