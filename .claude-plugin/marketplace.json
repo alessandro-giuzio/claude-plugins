@@ -22,8 +22,8 @@
     {
       "name": "wordpress-kit",
       "source": "./plugins/wordpress-kit",
-      "description": "Procedures for my custom WordPress plugins: /release bumps the version, writes the changelog, builds and checks the zip, and tags locally.",
-      "version": "0.1.0"
+      "description": "Procedures for my custom WordPress plugins: /release (version bump, changelog, checked zip, local tag) and a read-only security reviewer.",
+      "version": "0.2.0"
     },
     {
       "name": "content-kit",

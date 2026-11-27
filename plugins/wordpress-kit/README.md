@@ -1,6 +1,6 @@
 # wordpress-kit
 
-Procedures for my custom WordPress plugins. The first one is `/release`: from a clean repo to a versioned, checked zip and a local tag, with every place the version lives kept in sync.
+Procedures for my custom WordPress plugins: `/release` takes a clean repo to a versioned, checked zip and a local tag; `wp-security-reviewer` checks changed PHP for the security mistakes that matter in WordPress.
 
 ## Install
 
@@ -13,6 +13,7 @@ Procedures for my custom WordPress plugins. The first one is `/release`: from a 
 | Component | Name | Type | Runs |
 |---|---|---|---|
 | Skill | `release` | Procedure | Only when you type `/release` (never on its own) |
+| Agent | `wp-security-reviewer` | Read-only reviewer | When you ask for a security review, or before a release |
 
 ## /release
 
@@ -28,6 +29,32 @@ Procedures for my custom WordPress plugins. The first one is `/release`: from a 
 
 Never pushes. Never installs anything outside the repo's own release script.
 
+## wp-security-reviewer
+
+Read-only review of changed plugin or theme PHP (or the changes since the last tag, before a release). It follows each value from where it comes in to where it goes out, and checks:
+
+| # | Check | Looks for |
+|---|---|---|
+| 1 | Output escaping | `esc_html()`, `esc_attr()`, `esc_url()`, `wp_json_encode()`, `wp_kses()` matched to the context |
+| 2 | Input handling | `wp_unslash()` plus a sanitiser for the type, and an allow-list or range |
+| 3 | Nonces | on every form and AJAX action that changes data |
+| 4 | Capabilities | `current_user_can()` with the right capability; `nopriv` handlers that change data |
+| 5 | REST routes | a real `permission_callback`, argument validation |
+| 6 | SQL | `$wpdb->prepare()`, `esc_like()`, no table or column names from input |
+| 7 | Redirects and URLs | `wp_safe_redirect()` + `exit`, the HTTP API for remote requests |
+| 8 | Files | `wp_handle_upload()` with allowed types, safe paths, no includes from input |
+| 9 | Dangerous functions | `eval`, `extract` on input, `unserialize` on user data, shell functions |
+| 10 | Direct access | `ABSPATH` or `WPINC` guard in every PHP file |
+| 11 | Data exposure | secrets in code, personal data in logs or responses |
+
+Problems the change introduced block; problems already in untouched lines are listed as "Pre-existing". Reply: `SAFE` or `ISSUES: <n>`, then each problem with file, line, the risk in one sentence and the fix.
+
+Example:
+
+```
+run the WordPress security review on this change
+```
+
 ## Rules
 
 - `/release` is the only skill in my plugins allowed to commit, and only after approval.
@@ -35,4 +62,5 @@ Never pushes. Never installs anything outside the repo's own release script.
 
 ## Changelog
 
+- 0.2.0: New `wp-security-reviewer` agent: read-only review of changed PHP against 11 WordPress security checks; introduced problems block, pre-existing ones are listed.
 - 0.1.0: First version. `release` skill.

@@ -1,9 +1,16 @@
 {
   "name": "wordpress-kit",
-  "version": "0.1.0",
-  "description": "Procedures for my custom WordPress plugins. First: /release, which bumps the version, writes the changelog, builds and checks the zip, and tags the release locally.",
+  "version": "0.2.0",
+  "description": "Procedures for my custom WordPress plugins: /release (version bump, changelog, checked zip, local tag) and a read-only security reviewer for changed PHP.",
   "author": {
     "name": "Alessandro Giuzio"
   },
-  "keywords": ["wordpress", "plugin", "release", "changelog", "zip"]
+  "keywords": [
+    "wordpress",
+    "plugin",
+    "release",
+    "changelog",
+    "zip",
+    "security"
+  ]
 }
