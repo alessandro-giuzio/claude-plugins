@@ -7,7 +7,7 @@ This file is the versioned copy. The live copy is the one on each machine.
 ## What it does
 
 - **Deny:** reading or editing `.env`, `.env.*` and `.dev.vars` anywhere; editing `wp-config.php`; force pushes; destructive database and Docker commands (`migrate:fresh`, `migrate:reset`, `db:wipe`, `supabase db reset`, `wp db drop` / `reset`, `docker volume rm`, `docker system prune`).
-- **Ask:** `git push`, deploys (Netlify, Wrangler, Supabase), `php artisan migrate`, every `wp` command, `composer require`, `npm install`.
+- **Ask:** `git push`, deploys (Netlify, Wrangler, Supabase), `php artisan migrate`, every `wp` command, `composer require`, `npm install`, and the git commands that throw away local work: `git reset --hard`, `git clean -f` / `-fd` / `-fdx`, `git branch -D`, `git checkout .`, `git restore .`, `git stash drop`, `git stash clear`.
 
 Project settings from harness-kit add to these. A deny anywhere wins.
 
@@ -24,4 +24,5 @@ Project settings from harness-kit add to these. A deny anywhere wins.
 
 ## Changelog
 
+- 2026-11-27: destructive local git commands added to ask (they lose uncommitted work). Idea from Matt Pocock's git-guardrails skill (MIT).
 - 2026-11-26: first version, applied on my Mac. Allow list cleaned at the same time (one-off rules removed; `npm install` and `composer require` moved to ask; `python3 -c` and a `.env` grep removed).

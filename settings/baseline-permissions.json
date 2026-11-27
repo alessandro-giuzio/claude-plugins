@@ -11,7 +11,21 @@
       "Bash(php artisan migrate *)",
       "Bash(wp *)",
       "Bash(composer require *)",
-      "Bash(npm install *)"
+      "Bash(npm install *)",
+      "Bash(git reset --hard)",
+      "Bash(git reset --hard *)",
+      "Bash(git clean -f)",
+      "Bash(git clean -f *)",
+      "Bash(git clean -fd)",
+      "Bash(git clean -fd *)",
+      "Bash(git clean -fdx)",
+      "Bash(git clean -fdx *)",
+      "Bash(git branch -D *)",
+      "Bash(git checkout .)",
+      "Bash(git checkout -- .)",
+      "Bash(git restore .)",
+      "Bash(git stash drop *)",
+      "Bash(git stash clear)"
     ],
     "deny": [
       "Read(**/.env)",
